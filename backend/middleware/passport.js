@@ -16,3 +16,14 @@ passport.use('signup',
         }
     })
   );
+
+
+  passport.serializeUser((user, cb) => {
+    console.log(`serializeUser ${user}`);
+    cb(null, user._id);
+  });
+  
+  passport.deserializeUser((id, cb) => {
+    console.log(`deserializeUser ${id}`);
+    cb(null, id);
+  });

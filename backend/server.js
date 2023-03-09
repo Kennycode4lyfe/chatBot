@@ -11,7 +11,7 @@ require('dotenv').config()
 const Port= process.env.PORT
 const mongoUri = process.env.MONGODB_URL
 connect(mongoUri)
-require('./middleware/passport')
+
 
 const sessionMiddleware = session({ secret:process.env.SESSION_SECRET ,
  resave: false, 
@@ -21,18 +21,12 @@ app.use(sessionMiddleware);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+require('./middleware/passport')
 app.use(userRouter)
 
 
-passport.serializeUser((user, cb) => {
-    console.log(`serializeUser ${user}`);
-    cb(null, user._id);
-  });
-  
-  passport.deserializeUser((id, cb) => {
-    console.log(`deserializeUser ${id}`);
-    cb(null, id);
-  });
+
 
 // io.on("connection", function(socket){
 // 	socket.on("newuser",function(username){
