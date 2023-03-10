@@ -6,32 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="home.css">
+    <script src="https://kit.fontawesome.com/58740b3685.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="banner">
     <div class="navbar">
         <!-- <img src="./assets/venpro2.jpg" class="logo"> -->
         <ul class="logo">
-            <li><a href="#">Venpro</a></li>
+            <li><a href="#"><p>Venpro</p></a></li>
         </ul>
-<ul>
+       
+<ul class="nav-details">
     <li><a href="#">Home</a></li>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Home</a></li>
-
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Contact</a></li>
 </ul>
+<a href="#" class="menu">
+    <i class="fa fa-bars "></i>
+    </a>        
     </div>
     <div class="content">
         <h1>ONE STEP AWAY TO YOUR PREFERED DISH</h1>
         <P>Click the message icon to order your meal</P>
         <div>
-            <button type="button"><span></span>Github</button>
-            <button type="button"><span></span>LinkedIn</button>
+            <button type="button" class="button"><span></span>Github</button>
+            <button type="button" class="button"><span></span>LinkedIn</button>
         </div>
     </div>
-    
+    <a href="#" class="float">
+    <i class="fa fa-message my-float"></i>
+    </a>
+
+    <div class="screen chat-screen">
+        <div class="header">
+            <div class="logo">Chatroom</div>
+            <button id="exit-chat">Exit</button>
+        </div>
+        <div class="messages">
+        </div>
+        <div class="typebox">
+            <input type="text" id="message-input">
+            <button id="send-message">Send</button>
+        </div>
+    </div>
     </div>
     
 </body>

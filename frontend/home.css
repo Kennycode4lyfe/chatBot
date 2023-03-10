@@ -12,6 +12,7 @@
     ), url(assets/restaurant.jpg);
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
 }
 
 .navbar{
@@ -27,6 +28,7 @@
     width: 120px;
     cursor: pointer;
 }
+
 
 .navbar ul li{
     list-style-type: none;
@@ -76,7 +78,7 @@
     line-height: 25px;
 }
 
-button{
+.button{
     width:200px;
     padding: 15px 0;
     text-align: center;
@@ -111,4 +113,156 @@ button:hover span{
 
 button:hover{
     border: none;
+}
+
+.float{
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background:rgb(80, 252, 117) ;
+    color: whitesmoke;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow:  whitesmoke;
+    z-index: 1;
+    display:none;
+}
+
+.my-float{
+    margin-top: 22px;
+}
+
+.menu{
+    color: whitesmoke;
+    display:none;
+}
+
+@media (max-width:655px) {
+    .menu{
+        display:block;
+    }
+    .nav-details{
+        display:none;
+        width:100%;
+    }
+  
+    .content h1{
+        font-size: 50px;
+        margin-top: 50px;
+    }
+}
+
+@media (max-width:384px) {
+   
+    .content h1{
+        font-size: 40px;
+        margin-top: 60px;
+    }
+}
+
+
+
+.chat-screen{
+    position:absolute;
+    right:0px;
+    width:40vw;
+    height:80%;
+    z-index: 2;
+    border-radius: 8px 0px 0px 0px;
+    
+}
+
+.chat-screen .header {
+	background: rgb(80, 252, 117);
+	height: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 20px;
+    border-radius: 8px 0px 0px 0px;
+}
+
+.chat-screen .header .logo {
+	font-size: 18px;
+	color: whitesmoke;
+	font-weight: 600;
+}
+
+.chat-screen .header button {
+	padding: 5px 10px;
+	border: 2px solid whitesmoke;
+    border-radius: 4px;
+	background: transparent;
+	color:whitesmoke;
+	font-size: 15px;
+	cursor: pointer;
+	outline: none;
+}
+
+.chat-screen .messages {
+	width: 100%;
+	height: calc(100% - 100px);
+	background: whitesmoke;
+	overflow: auto;
+}
+
+.chat-screen .messages .message {
+	display: flex;
+	padding: 10px;
+}
+
+.chat-screen .messages .message > div {
+	max-width: 80%;
+	background: #fff;
+	box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.05);
+	padding: 10px;
+}
+
+.chat-screen .messages .message.my-message {
+	justify-content: flex-end;
+}
+
+.chat-screen .messages .message.other-message {
+	justify-content: flex-start;
+}
+
+.chat-screen .messages .message .name {
+	font-size: 13px;
+	color: #555;
+	margin-bottom: 5px;
+}
+
+.chat-screen .messages .message .text {
+	word-wrap: break-word;
+}
+.chat-screen .messages .update {
+	text-align: center;
+	padding: 10px;
+	font-style: italic;
+}
+
+.chat-screen .typebox {
+	width: 100%;
+	height: 50px;
+	display: flex;
+    border-radius: 0px 0px 0px 8px;
+}
+.chat-screen .typebox input {
+	flex: 1;
+	height: 50px;
+	font-size: 18px;
+    border-radius: 0px 0px 0px 8px;
+}
+.chat-screen .typebox button {
+	width: 80px;
+	height: 100%;
+	background:rgb(80, 252, 117);
+	color: #eee;
+	font-size: 16px;
+	outline: none;
+	border: none;
+    
+	cursor: pointer;
 }
