@@ -127,7 +127,7 @@ button:hover{
     text-align: center;
     box-shadow:  whitesmoke;
     z-index: 1;
-    display:none;
+    /* display:none; */
 }
 
 .my-float{
@@ -163,6 +163,71 @@ button:hover{
 }
 
 
+.app {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	max-width: 450px;
+	max-height: 550px;
+	background: #fff;
+	border-left: 1px solid #eee;
+	border-right: 1px solid #eee;
+}
+.app > .screen {
+	display: none;
+}
+.app > .screen.active {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.screen .form {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 80%;
+	max-width: 400px;
+}
+.screen .form-input {
+	width: 100%;
+	margin: 20px 0px;
+}
+
+
+
+.screen h2 {
+	margin-bottom: 20px;
+	font-size: 30px;
+	color: whitesmoke;
+	border-bottom: 4px solid #555;
+	padding: 5px 0px;
+	display: inline-block;
+}
+.screen .form-input label {
+	display: block;
+	margin-bottom: 5px;
+    color: whitesmoke;
+}
+.screen .form-input input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #555;
+	font-size: 16px;
+}
+.screen .form-input button {
+	padding: 10px 20px;
+	background: rgb(80, 252, 117);
+	color: whitesmoke;
+	font-size: 16px;
+	cursor: pointer;
+	outline: none;
+	border: none;
+    border-radius: 8px;
+}
+
+
 
 .chat-screen{
     position:absolute;
@@ -171,7 +236,7 @@ button:hover{
     height:80%;
     z-index: 2;
     border-radius: 8px 0px 0px 0px;
-    
+    display: none;
 }
 
 .chat-screen .header {
