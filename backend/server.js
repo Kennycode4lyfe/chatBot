@@ -7,6 +7,7 @@ const {connect} = require('./database/index')
 const server = require("http").createServer(app);
 const userRouter = require('../backend/routes/userRoutes')
 const io = require("socket.io")(server);
+// const localStrategy = require('passport-local').Strategy
 require('dotenv').config()
 const Port= process.env.PORT
 const mongoUri = process.env.MONGODB_URL
@@ -19,13 +20,44 @@ const sessionMiddleware = session({ secret:process.env.SESSION_SECRET ,
 
 app.use(sessionMiddleware);
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+
+// const DUMMY_USER = {
+//   id:2,
+//   name:'kenny'
+// }
+// passport.use("signup",
+//   new localStrategy((username,password, done) => {
+//     console.log(typeof(username))
+
+//     if (username === "john") {
+//       console.log("authentication OK");
+//       return done(null, DUMMY_USER);
+//     } else {
+//       console.log("wrong credentials");
+//       return done(null, false);
+//     }
+//   })
+// );
+
+
+
+
 
 require('./middleware/passport')
 app.use(userRouter)
 
+// passport.serializeUser((user, cb) => {
+//   console.log(`serializeUser ${user}`);
+//   cb(null, user);
+// });
 
+// passport.deserializeUser((id, cb) => {
+//   console.log(`deserializeUser ${id}`);
+//   cb(null, DUMMY_USER);
+// });
 
 
 // io.on("connection", function(socket){
@@ -69,5 +101,5 @@ io.use((socket, next) => {
 
 
 server.listen(Port,()=>{
-    console.log("server listening on port 5000")
+    console.log(`server listening on port ${Port}`)
 });

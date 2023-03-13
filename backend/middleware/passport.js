@@ -1,21 +1,44 @@
 const passport = require('passport');
-const localStrategy = require('passport-local').Strategy
+// const localStrategy = require('passport-local').Strategy
 const UserModel = require('../model/index').UserModel
-
-passport.use('signup',
-    new localStrategy( {
-        usernameField: 'username',
-        passwordField: 'password'
-    },async (username, password, done) => {
+const passportCustomStrategy = require('passport-custom').Strategy
+passport.use(
+    new passportCustomStrategy(
+      async(req,done) => {
         try{
-        const user = await UserModel.create({ username, password })
+          console.log('passport auth started')
+      
+        const username = req.body.username
+        console.log(username)
+        const user = await UserModel.create({username:username})
         return done(null, user);
         }
         catch(err){
-            done(err)
+         done(err)
         }
     })
   );
+
+// const DUMMY_USER = {
+//   id: 1,
+//   username: "john",
+// };
+
+
+
+// passport.use('signup',
+//   new localStrategy((username, password, done) => {
+//     console.log('passport')
+//     if (username === "john") {
+//       console.log("authentication OK");
+//       return done(null, DUMMY_USER);
+//     } else {
+//       console.log("wrong credentials");
+//       return done(null, false);
+//     }
+//   })
+// );
+
 
 
   passport.serializeUser((user, cb) => {

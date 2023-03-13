@@ -10,8 +10,7 @@ const ObjectId = Schema.ObjectId;
 const UserSchema = new Schema({
   id: ObjectId,
   created_at: Date,
-  username: String,
-  password: String
+  username: String
 });
 
 const User = mongoose.model('User', UserSchema);
