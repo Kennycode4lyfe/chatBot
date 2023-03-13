@@ -11,6 +11,8 @@ const io = require("socket.io")(server);
 require('dotenv').config()
 const Port= process.env.PORT
 const mongoUri = process.env.MONGODB_URL
+const path = require('path')
+const staticFilePath = path.join('/Users','HP','Desktop','chatBot','frontend','public')
 connect(mongoUri)
 
 
@@ -19,6 +21,7 @@ const sessionMiddleware = session({ secret:process.env.SESSION_SECRET ,
  saveUninitialized: false });
 
 app.use(sessionMiddleware);
+app.use(express.static(staticFilePath))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
