@@ -100,6 +100,10 @@ io.on('connect', (socket) => {
   });
 
   socket.emit('type','loop' );
+
+  socket.on("num9",function(message){
+		socket.emit("chat", message);
+	});
   
   console.log(socket.request.user)
   const session = socket.request.session;
