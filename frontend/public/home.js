@@ -28,6 +28,7 @@ console.log(typeof(socket))
 				app.querySelector(".chat-screen #send-message").addEventListener("click",function(){
 					console.log('clicked-button')
 				renderMessage('other',username)
+				renderMessage('options', username)
 					app.querySelector(".chat-screen #message-input").value = "";
 				});
 			}
@@ -140,8 +141,29 @@ console.log('clicked-button')
 					<div class="text">welcome ${message}</div>
 				</div>
 			`;
+			
 			messageContainer.appendChild(el);
-		} else if(type == "update"){
+		}
+		else if(type == "options"){
+			let el = document.createElement("div");
+			el.setAttribute("class","message other-message");
+			el.innerHTML = `
+				<div>
+					<div class="name">${message}</div>
+					<div class="text">
+					<ul class="nav-details">
+					<li>select 1 to place an order</li>
+					<li>select 99 to checkout an order</li>
+					<li>select 97 to see current order</li>
+					<li>select 0 to cancel order</li>
+				</ul>
+
+					</div>
+				</div>
+			`
+			messageContainer.appendChild(el);
+		}
+		 else if(type == "update"){
 			let el = document.createElement("div");
 			el.setAttribute("class","update");
 			el.innerText = message;
