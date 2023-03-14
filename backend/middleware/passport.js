@@ -43,10 +43,10 @@ passport.use(
 
   passport.serializeUser((user, cb) => {
     console.log(`serializeUser ${user}`);
-    cb(null, user._id);
+    cb(null, user);
   });
   
-  passport.deserializeUser((id, cb) => {
-    console.log(`deserializeUser ${id}`);
-    cb(null, id);
+  passport.deserializeUser((user, cb) => {
+    console.log(`deserializeUser ${user}`);
+    cb(null, user);
   });

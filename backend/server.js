@@ -90,17 +90,25 @@ io.use((socket, next) => {
   }
 });
 
-// io.on('connect', (socket) => {
-//   console.log(`new connection ${socket.id}`);
-//   socket.on('whoami', (cb) => {
-//     cb(socket.request.user ? socket.request.user.username : '');
-//   });
 
-//   const session = socket.request.session;
-//   console.log(`saving sid ${socket.id} in session ${session.id}`);
-//   session.socketId = socket.id;
-//   session.save();
-// });
+
+
+io.on('connect', (socket) => {
+  console.log(`new connection ${socket.id}`);
+  socket.on('newCustomer', (cb) => {
+    cb(socket.request.user ? socket.request.user.username : '');
+  });
+
+  socket.emit('type','loop' );
+  
+  console.log(socket.request.user)
+  const session = socket.request.session;
+  console.log(`saving sid ${socket.id} in session ${session.id}`);
+  session.socketId = socket.id;
+  session.save();
+
+
+});
 
 
 server.listen(Port,()=>{
