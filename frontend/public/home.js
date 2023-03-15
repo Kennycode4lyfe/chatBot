@@ -48,12 +48,12 @@ console.log(message)
 			username:'chatBot',
 			text:message
 		});
-		socket.emit("num9",{
+		socket.emit("num1",{
 			username:'chatBot',
 			text:message
 		});
-		socket.on("chat",function(message){
-		renderMessage("num9",message);
+		socket.on("order_options",function(message){
+		renderMessage("order_options",message);
 	});
 		
 	}
@@ -71,7 +71,9 @@ console.log(message)
 	});
 	
 	socket.on('burger', function(message){
+		console.log(message)
 		renderMessage('order',message)
+		socket.off('burger')
 		})
 }
 	app.querySelector(".chat-screen #message-input").value = "";
@@ -143,7 +145,7 @@ console.log(message)
 			`
 			messageContainer.appendChild(el);
 		}
-		else if(type == "num9"){
+		else if(type == "order_options"){
 			let el = document.createElement("div");
 			el.setAttribute("class","message other-message");
 			el.innerHTML = `

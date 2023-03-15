@@ -104,14 +104,12 @@ io.on('connect', (socket) => {
     cb(socket.request.user ? socket.request.user.username : '');
   });
 
-  socket.emit('type','loop' );
-
-  socket.on("num9",function(message){
-		socket.emit("chat", message);
+  socket.on("num1",function(message){
+		socket.emit("order_options", message);
 	});
 
   socket.on("num6", async function(message){
-
+console.log(message)
    const options= {
     '2':'chicken',
     '4':'chips',
@@ -144,6 +142,8 @@ price:item.price
   const customerOrderDetails = {item:message.text,
     total_price:updatedCustomerOrder.total_price}
     
+
+    console.log(customerOrderDetails)
         socket.emit("burger", customerOrderDetails);  
 }
 
@@ -158,10 +158,13 @@ else {
       quantity: 0,
     }]
   })
+ 
+  
   
   const newCustomerOrder = {item:message.text,
 total_price:userOrder.total_price}
 
+console.log(newCustomerOrder)
 		socket.emit("burger", newCustomerOrder)
   }
 	});
