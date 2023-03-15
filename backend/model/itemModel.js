@@ -10,7 +10,6 @@ const ItemSchema = new Schema({
   id: ObjectId,
   created_at: Date,
     name: String,
-    quantity: Number,
     price: Number
 });
 

@@ -8,7 +8,9 @@ messageScreen.querySelector('.float').addEventListener('click',function(){
  const messageButton = document.getElementById('float')
  messageButton.style.display = 'none'
 document.getElementById('chat-screen').style.display='block'
-renderMessage('options', username)
+renderMessage('options',{
+	username:'chatBot'
+})
 })
 
 const exitButton = messageScreen.querySelector('#exit-chat')
@@ -34,13 +36,14 @@ exitButton.addEventListener('click',function(){
 
 	app.querySelector(".chat-screen #send-message").addEventListener("click",function(){
 		let message = app.querySelector(".chat-screen #message-input").value;
-
+console.log(message)
 		
 
-		if(message.length  == 0){
+		if(message.length  == 0 ){
 			return;
 		}
-		if(message='1'){
+		if(message==='1'){
+			console.log(message)
 		renderMessage("my",{
 			username:'chatBot',
 			text:message
@@ -49,17 +52,39 @@ exitButton.addEventListener('click',function(){
 			username:'chatBot',
 			text:message
 		});
-		app.querySelector(".chat-screen #message-input").value = "";
-	}
-	
-	});
-
-
-	socket.on("chat",function(message){
+		socket.on("chat",function(message){
 		renderMessage("num9",message);
 	});
+		
+	}
+
+	if(message==='6'||message==='2'||message==='4'||message==='8'){
+		console.log(message)
+		renderMessage("my",{
+			username:'You',
+			text:message
+		})
+	socket.emit("num6",{
+		username:'chatBot',
+		text:'burger',
+		number:message
+	});
+	
+	socket.on('burger', function(message){
+		renderMessage('order',message)
+		})
+}
+	app.querySelector(".chat-screen #message-input").value = "";
+	});
 
 
+// socket.on("chat",function(message){
+// 		renderMessage("num9",message);
+// 	});
+
+// socket.on('burger', function(message){
+// renderMessage('order',message)
+// })
 
 	function renderMessage(type,message){
 		let messageContainer = app.querySelector(".chat-screen .messages");
@@ -85,12 +110,26 @@ exitButton.addEventListener('click',function(){
 			
 			messageContainer.appendChild(el);
 		}
+
+		else if(type == "order"){
+			let el = document.createElement("div");
+			el.setAttribute("class","message other-message");
+			el.innerHTML = `
+				<div>
+					<div class="name">chatBot</div>
+					<div class="text">${message.item} added to order</div>
+					<div class="text">total price is ${message.total_price}</div>
+				</div>
+			`;
+			
+			messageContainer.appendChild(el);
+		}
 		else if(type == "options"){
 			let el = document.createElement("div");
 			el.setAttribute("class","message other-message");
 			el.innerHTML = `
 				<div>
-					<div class="name">${message}</div>
+					<div class="name">${message.username}</div>
 					<div class="text">
 					<ul class="nav-details">
 					<li>select 1 to place an order</li>

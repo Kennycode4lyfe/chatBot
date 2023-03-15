@@ -6,12 +6,16 @@ const session = require("express-session");
 const {connect} = require('./database/index')
 const server = require("http").createServer(app);
 const userRouter = require('../backend/routes/userRoutes')
+const itemRouter = require('./routes/itemsRoute')
+const orderModel = require('./model/index').OrderModel
+const itemModel = require('./model/index').ItemModel
 const io = require("socket.io")(server);
 // const localStrategy = require('passport-local').Strategy
 require('dotenv').config()
 const Port= process.env.PORT
 const mongoUri = process.env.MONGODB_URL
-const path = require('path')
+const path = require('path');
+const { OrderModel } = require("./model/index");
 const staticFilePath = path.join('/Users','HP','Desktop','chatBot','frontend','public')
 connect(mongoUri)
 
@@ -51,6 +55,7 @@ app.use(passport.session());
 
 require('./middleware/passport')
 app.use(userRouter)
+app.use(itemRouter)
 
 // passport.serializeUser((user, cb) => {
 //   console.log(`serializeUser ${user}`);
@@ -104,7 +109,63 @@ io.on('connect', (socket) => {
   socket.on("num9",function(message){
 		socket.emit("chat", message);
 	});
+
+  socket.on("num6", async function(message){
+
+   const options= {
+    '2':'chicken',
+    '4':'chips',
+    '6':'burger',
+    '8':'Sharwarma'
+   }
+
+const orderNum = message.number
+console.log(orderNum)
+const customerMeal = options[orderNum]
+   
+
+const item = await itemModel.findOne({name:customerMeal})
+console.log(item)
+const itemId = socket.request.user._id
+const customerOrder = await OrderModel.findOne({_id:itemId})
+
+if(customerOrder){
+const customerMealPrice = item.price
+
+const updatedCustomerOrder = await OrderModel.findOneAndUpdate({_id:itemId},{
+total_price:customerOrder.total_price+customerMealPrice,
+items:[{
+name:item.name,
+price:item.price
+}]
+},{
+  returnOriginal: false,
+})
+  const customerOrderDetails = {item:message.text,
+    total_price:updatedCustomerOrder.total_price}
+    
+        socket.emit("burger", customerOrderDetails);  
+}
+
+
+else {
+  const userOrder= await OrderModel.create({
+    _id:itemId,
+    total_price: 0+item.price,
+    items: [{
+      name: item.name,
+      price: item.price,
+      quantity: 0,
+    }]
+  })
   
+  const newCustomerOrder = {item:message.text,
+total_price:userOrder.total_price}
+
+		socket.emit("burger", newCustomerOrder)
+  }
+	});
+
   console.log(socket.request.user)
   const session = socket.request.session;
   console.log(`saving sid ${socket.id} in session ${session.id}`);
