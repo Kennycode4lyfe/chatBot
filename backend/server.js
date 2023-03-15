@@ -108,7 +108,7 @@ io.on('connect', (socket) => {
 		socket.emit("order_options", message);
 	});
 
-  socket.on("num6", async function(message){
+  socket.on("orders", async function(message){
 console.log(message)
    const options= {
     '2':'chicken',
@@ -132,26 +132,33 @@ const customerMealPrice = item.price
 
 const updatedCustomerOrder = await OrderModel.findOneAndUpdate({_id:itemId},{
 total_price:customerOrder.total_price+customerMealPrice,
-items:[{
-name:item.name,
-price:item.price
-}]
+$push:{
+'items':{
+  name:item.name,
+  price:item.price
+}
+}
 },{
   returnOriginal: false,
 })
-  const customerOrderDetails = {item:message.text,
+  const customerOrderDetails = {item:customerMeal,
     total_price:updatedCustomerOrder.total_price}
     
 
     console.log(customerOrderDetails)
-        socket.emit("burger", customerOrderDetails);  
+        socket.emit("order_details", customerOrderDetails);  
 }
 
+// items:[...{
+//   name:item.name,
+//   price:item.price
+//   }]
 
 else {
   const userOrder= await OrderModel.create({
     _id:itemId,
     total_price: 0+item.price,
+    
     items: [{
       name: item.name,
       price: item.price,
@@ -161,12 +168,41 @@ else {
  
   
   
-  const newCustomerOrder = {item:message.text,
+  const newCustomerOrder = {item:customerMeal,
 total_price:userOrder.total_price}
 
 console.log(newCustomerOrder)
-		socket.emit("burger", newCustomerOrder)
+		socket.emit("order_details", newCustomerOrder)
   }
+
+  socket.on("checkout_order", async function(message){
+    console.log(message)
+    const userId = socket.request.user._id
+    const userOrder = await orderModel.findOne({_id:userId})
+
+		socket.emit("place_order", {name:'chatBot',total_price:userOrder.total_price});
+	});
+
+
+    socket.on("current_order", async function(message){
+    console.log(message)
+    const userId = socket.request.user._id
+    const userOrder = await orderModel.findOne({_id:userId})
+    const userOrderItems = userOrder.items
+    const current_order = userOrderItems[userOrderItems.length-1]
+		socket.emit("show_current_order", {name:'chatBot',currentOrder:current_order});
+	});
+
+
+  socket.on("order_history", async function(message){
+    console.log(message)
+    const userId = socket.request.user._id
+    const userOrder = await orderModel.findOne({_id:userId})
+    const userOrderItems = userOrder.items
+		socket.emit("show_order_history", userOrderItems);
+	});
+
+
 	});
 
   console.log(socket.request.user)

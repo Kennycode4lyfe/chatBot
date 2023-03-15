@@ -54,6 +54,7 @@ console.log(message)
 		});
 		socket.on("order_options",function(message){
 		renderMessage("order_options",message);
+		socket.off('order_options')
 	});
 		
 	}
@@ -64,18 +65,77 @@ console.log(message)
 			username:'You',
 			text:message
 		})
-	socket.emit("num6",{
+	socket.emit("orders",{
 		username:'chatBot',
-		text:'burger',
 		number:message
 	});
 	
-	socket.on('burger', function(message){
+	socket.on('order_details', function(message){
 		console.log(message)
 		renderMessage('order',message)
-		socket.off('burger')
+		renderMessage('checkout_order',{})
+		socket.off('order_details')
 		})
 }
+
+if(message==='99'){
+	console.log(message)
+	renderMessage("my",{
+		username:'You',
+		text:message
+	})
+socket.emit("checkout_order",{
+	username:'chatBot',
+	number:message
+});
+
+socket.on('place_order', function(message){
+	console.log(message)
+	
+	renderMessage('order_placed',message)
+	socket.off('place_order')
+	})
+}
+
+if(message==='97'){
+	console.log(message)
+	renderMessage("my",{
+		username:'You',
+		text:message
+	})
+socket.emit("current_order",{
+	username:'chatBot',
+	number:message
+});
+
+socket.on('show_current_order', function(message){
+	console.log(message)
+	
+	renderMessage('current_order',message)
+	socket.off('show_current_order')
+	})
+}
+
+
+if(message==='98'){
+	console.log(message)
+	renderMessage("my",{
+		username:'You',
+		text:message
+	})
+socket.emit("order_history",{
+	username:'chatBot',
+	number:message
+});
+
+socket.on('show_order_history', function(message){
+	console.log(message)
+	
+	renderMessage('order_history',message)
+	socket.off('show_order_history')
+	})
+}
+
 	app.querySelector(".chat-screen #message-input").value = "";
 	});
 
@@ -126,6 +186,82 @@ console.log(message)
 			
 			messageContainer.appendChild(el);
 		}
+		else if(type == "checkout_order"){
+			let el = document.createElement("div");
+			el.setAttribute("class","message other-message");
+			el.innerHTML = `
+				<div>
+					<div class="name">chatBot</div>
+					<div class="text">select 99 to checkout order or 1 to place an order</div>
+				
+				</div>
+			`;
+			
+			messageContainer.appendChild(el);
+		}
+		else if(type == "current_order"){
+			let el = document.createElement("div");
+			el.setAttribute("class","message other-message");
+			el.innerHTML = `
+				<div>
+					<div class="name">${message.name}</div>
+					<div class="text">current order is:</div>
+					<div class="text">${message.currentOrder.name} #${message.currentOrder.price}</div>
+					
+				</div>
+			`;
+			
+			messageContainer.appendChild(el);
+		}
+
+		else if(type == "order_history"){
+			let el = document.createElement("div");
+			el.setAttribute("class","message other-message");
+			el.innerHTML = `
+				<div>
+				<table id="orders">
+				<tr>
+				  <th>item</th>
+				  <th>price</th>
+				</tr>
+			  </table>
+				</div>
+			`
+			messageContainer.appendChild(el)
+
+			console.log(message)
+			message.forEach(element => {
+				
+				console.log(element.name)
+				const orderTable = document.getElementById('orders');
+				const row = orderTable.insertRow(-1);
+		
+				let column1 = row.insertCell(0);
+				let column2 = row.insertCell(1);
+				
+		
+				column1.innerText = element.name;
+				column2.innerText = element.price;
+				
+			});
+
+			
+			
+		}
+		else if(type == "order_placed"){
+			let el = document.createElement("div");
+			el.setAttribute("class","message other-message");
+			
+			el.innerHTML = `
+				<div>
+					<div class="name">${message.name}</div>
+					<div class="text">order placed</div>
+					<div class="text">total price is ${message.total_price}</div>
+				</div>
+			`;
+			
+			messageContainer.appendChild(el);
+		}
 		else if(type == "options"){
 			let el = document.createElement("div");
 			el.setAttribute("class","message other-message");
@@ -135,8 +271,9 @@ console.log(message)
 					<div class="text">
 					<ul class="nav-details">
 					<li>select 1 to place an order</li>
-					<li>select 99 to checkout an order</li>
 					<li>select 97 to see current order</li>
+					<li>select 98 to see order history</li>
+					<li>select 99 to checkout an order</li>
 					<li>select 0 to cancel order</li>
 				</ul>
 
