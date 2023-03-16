@@ -233,8 +233,9 @@ socket.on('show_order_history', function(message){
 			message.forEach(element => {
 				
 				console.log(element.name)
-				const orderTable = document.getElementById('orders');
-				const row = orderTable.insertRow(-1);
+				const orderTable = document.querySelectorAll('#orders');
+				console.log(orderTable)
+				const row = orderTable[orderTable.length-1].insertRow(-1);
 		
 				let column1 = row.insertCell(0);
 				let column2 = row.insertCell(1);
