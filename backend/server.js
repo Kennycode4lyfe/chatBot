@@ -19,7 +19,7 @@ const { OrderModel } = require("./model/index");
 const staticFilePath = path.join('/Users','HP','Desktop','chatBot','frontend','public')
 const prodStaticFilePath = process.env.PROD_STATIC_PATH
 
-console.log(__dirname)
+
 connect(mongoUri)
 
 
