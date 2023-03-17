@@ -26,7 +26,7 @@ const sessionMiddleware = session({ secret:process.env.SESSION_SECRET ,
  saveUninitialized: false });
 
 app.use(sessionMiddleware);
-app.use(express.static(staticFilePath||prodStaticFilePath ))
+app.use(express.static(prodStaticFilePath ))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
