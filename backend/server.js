@@ -17,6 +17,7 @@ const mongoUri = process.env.MONGODB_URL
 const path = require('path');
 const { OrderModel } = require("./model/index");
 const staticFilePath = path.join('/Users','HP','Desktop','chatBot','frontend','public')
+const prodStaticFilePath = path.join('/frontend','public')
 connect(mongoUri)
 
 
@@ -25,7 +26,7 @@ const sessionMiddleware = session({ secret:process.env.SESSION_SECRET ,
  saveUninitialized: false });
 
 app.use(sessionMiddleware);
-app.use(express.static(staticFilePath))
+app.use(express.static(staticFilePath||prodStaticFilePath ))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
