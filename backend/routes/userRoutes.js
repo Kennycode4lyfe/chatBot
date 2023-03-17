@@ -17,7 +17,7 @@ if(isAuthenticated){
  else {
     console.log("unknown user");
   }
-  res.sendFile(isAuthenticated ? "home.html" : "index.html", { root: filepath||productionFilePath });
+  res.sendFile(isAuthenticated ? "home.html" : "index.html", { root: productionFilePath });
 }
 )
 
