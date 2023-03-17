@@ -179,8 +179,12 @@ console.log(newCustomerOrder)
     console.log(message)
     const userId = socket.request.user._id
     const userOrder = await orderModel.findOne({_id:userId})
+    console.log(userOrder)
+    if(userOrder===null){
+      socket.emit("place_order", {name:'chatBot',total_price:'no order to place'}) 
+    }
 
-		socket.emit("place_order", {name:'chatBot',total_price:userOrder.total_price});
+		else{socket.emit("place_order", {name:'chatBot',total_price:userOrder.total_price});}
 	});
 
 
@@ -200,6 +204,15 @@ console.log(newCustomerOrder)
     const userOrder = await orderModel.findOne({_id:userId})
     const userOrderItems = userOrder.items
 		socket.emit("show_order_history", userOrderItems);
+	});
+
+  socket.on("cancel_order", async function(message){
+    console.log(message)
+    const userId = socket.request.user._id
+    const userOrder = await orderModel.findOneAndDelete({_id:userId})
+    
+		socket.emit("order_cancelled", {name:'chatBot',
+  message:'your order is cancelled'});
 	});
 
 

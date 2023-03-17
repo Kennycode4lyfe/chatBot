@@ -152,7 +152,13 @@ button:hover{
         font-size: 50px;
         margin-top: 50px;
     }
+    
+    
 }
+
+
+
+
 
 @media (max-width:384px) {
    
@@ -161,6 +167,8 @@ button:hover{
         margin-top: 60px;
     }
 }
+
+
 
 
 .app {
@@ -353,4 +361,13 @@ button:hover{
     text-align: left;
     background-color: #04AA6D;
     color: white;
+    }
+
+    #list > li{
+       list-style-type:none; 
+    }
+
+    .nav-details li{
+        list-style-type: none;
+        
     }

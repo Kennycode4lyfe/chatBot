@@ -136,6 +136,25 @@ socket.on('show_order_history', function(message){
 	})
 }
 
+if(message==='0'){
+	console.log(message)
+	renderMessage("my",{
+		username:'You',
+		text:message
+	})
+socket.emit("cancel_order",{
+	username:'chatBot',
+	number:message
+});
+
+socket.on('order_cancelled', function(message){
+	console.log(message)
+	
+	renderMessage('cancel_order',message)
+	socket.off('order_cancelled')
+	})
+}
+
 	app.querySelector(".chat-screen #message-input").value = "";
 	});
 
@@ -193,7 +212,6 @@ socket.on('show_order_history', function(message){
 				<div>
 					<div class="name">chatBot</div>
 					<div class="text">select 99 to checkout order or 1 to place an order</div>
-				
 				</div>
 			`;
 			
@@ -252,8 +270,18 @@ socket.on('show_order_history', function(message){
 		else if(type == "order_placed"){
 			let el = document.createElement("div");
 			el.setAttribute("class","message other-message");
-			
-			el.innerHTML = `
+console.log(typeof(message))
+			if(typeof(message.total_price)=='string'){
+				el.innerHTML = `
+				<div>
+					<div class="name">${message.name}</div>
+					<div class="text">${message.total_price}</div>
+					<div> select 1 to place an order <div>
+				</div>
+			`;
+			messageContainer.appendChild(el);
+			}
+			else{el.innerHTML = `
 				<div>
 					<div class="name">${message.name}</div>
 					<div class="text">order placed</div>
@@ -261,8 +289,24 @@ socket.on('show_order_history', function(message){
 				</div>
 			`;
 			
+			messageContainer.appendChild(el);}
+		}
+
+		else if(type == "cancel_order"){
+			let el = document.createElement("div");
+			el.setAttribute("class","message other-message");
+			
+			el.innerHTML = `
+				<div>
+					<div class="name">${message.name}</div>
+					<div class="text">${message.message}</div>
+					<div>select 1 to order</div>
+				</div>
+			`;
+			
 			messageContainer.appendChild(el);
 		}
+
 		else if(type == "options"){
 			let el = document.createElement("div");
 			el.setAttribute("class","message other-message");
