@@ -1,9 +1,9 @@
 const itemModel = require('../model/index').ItemModel
 const express = require('express')
 const itemRouter = express.Router()
+const itemValidator = require('../validators/itemValidator')
 
-
-itemRouter.post('/meal',async(req,res,next)=>{
+itemRouter.post('/meal',itemValidator, async(req,res,next)=>{
     const item = req.body
 try{
  const createdItem =  await itemModel.create(item)
