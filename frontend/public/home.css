@@ -171,6 +171,12 @@ button:hover{
 
 
 
+
+
+
+
+
+
 .app {
 	position: fixed;
 	width: 100%;
@@ -371,3 +377,31 @@ button:hover{
         list-style-type: none;
         
     }
+
+    @media only screen and (max-width: 652px) and (min-width: 485px){
+
+        .chat-screen{
+            width:54vw;
+        }
+    }
+    
+    
+    @media only screen and (max-width: 486px) and (min-width: 360px){
+    
+        .chat-screen{ 
+            width:64vw;
+        }
+    }
+    
+@media only screen and (max-width: 359px){
+
+    .chat-screen{
+        position:absolute;
+        right:0px;
+        width:91vw;
+        height:80%;
+        z-index: 2;
+        border-radius: 8px 0px 0px 0px;
+        display: none;
+    }
+}

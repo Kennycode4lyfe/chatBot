@@ -313,16 +313,11 @@ console.log(typeof(message))
 			el.innerHTML = `
 				<div>
 					<div class="name">${message.username}</div>
-					<div class="text">
-					<ul class="nav-details">
-					<li>select 1 to place an order</li>
-					<li>select 97 to see current order</li>
-					<li>select 98 to see order history</li>
-					<li>select 99 to checkout an order</li>
-					<li>select 0 to cancel order</li>
-				</ul>
-
-					</div>
+					<div>select 1 to place an order</div>
+					<div>select 97 to see current order</div>
+					<div>select 98 to see order history</div>
+					<div>select 99 to checkout an order<div>
+					<div>select 0 to cancel order</div>
 				</div>
 			`
 			messageContainer.appendChild(el);
@@ -333,15 +328,10 @@ console.log(typeof(message))
 			el.innerHTML = `
 				<div>
 					<div class="name">${message.username}</div>
-					<div class="text">
-					<ul class="nav-details">
-					<li>select 2 to order chicken</li>
-					<li>select 4 to order chips</li>
-					<li>select 6 to order burger</li>
-					<li>select 8 to order sharwarma</li>
-				</ul>
-
-					</div>
+					<div>select 2 to order chicken</div>
+					<div>select 4 to order chips</div>
+					<div>select 6 to order burger</div>
+					<div>select 8 to order sharwarma</div>
 				</div>
 			`
 			messageContainer.appendChild(el);
