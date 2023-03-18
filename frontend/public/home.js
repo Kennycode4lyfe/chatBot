@@ -34,6 +34,7 @@
       if (message.length == 0) {
         return;
       }
+
      else if (message === "1") {
         console.log(message);
         renderMessage("my", {
@@ -80,6 +81,8 @@
           username: "You",
           text: message,
         });
+
+       
         socket.emit("checkout_order", {
           username: "chatBot",
           number: message,
@@ -90,7 +93,8 @@
 
           renderMessage("order_placed", message);
           socket.off("place_order");
-        });
+        })
+      
       }
 
      else if (message === "97") {
@@ -201,6 +205,21 @@
 
       messageContainer.appendChild(el);
     } else if (type == "current_order") {
+      if(typeof(message.currentOrder)==='string'){
+        console.log(typeof(message.currentOrder))
+        let el = document.createElement("div");
+      el.setAttribute("class", "message other-message");
+      el.innerHTML = `
+				<div>
+					<div class="name">${message.name}</div>
+					<div class="text">${message.currentOrder}</div>
+          <div> select 1 to order </div>					
+				</div>
+			`;
+
+      messageContainer.appendChild(el);
+      }
+      else{
       let el = document.createElement("div");
       el.setAttribute("class", "message other-message");
       el.innerHTML = `
@@ -212,8 +231,11 @@
 				</div>
 			`;
 
-      messageContainer.appendChild(el);
+      messageContainer.appendChild(el);}
     } else if (type == "order_history") {
+      console.log(typeof(message))
+      console.log(message)
+      if(typeof(message.message)==='object'){
       let el = document.createElement("div");
       el.setAttribute("class", "message other-message");
       el.innerHTML = `
@@ -229,7 +251,7 @@
       messageContainer.appendChild(el);
 
       console.log(message);
-      message.forEach((element) => {
+      message.message.forEach((element) => {
         console.log(element.name);
         const orderTable = document.querySelectorAll("#orders");
         console.log(orderTable);
@@ -240,7 +262,20 @@
 
         column1.innerText = element.name;
         column2.innerText = element.price;
-      });
+      })}
+      else{
+        let el = document.createElement("div");
+      el.setAttribute("class", "message other-message");
+      el.innerHTML = `
+				<div>
+					<div class="name">chatBot</div>
+					<div class="text">${message.message}</div>
+          <div>select 1 to order</div>
+				</div>
+			`;
+
+      messageContainer.appendChild(el); 
+      }
     } else if (type == "order_placed") {
       let el = document.createElement("div");
       el.setAttribute("class", "message other-message");
