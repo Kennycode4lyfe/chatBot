@@ -30,9 +30,18 @@
     .addEventListener("click", function () {
       let message = app.querySelector(".chat-screen #message-input").value;
       console.log(message);
+      const promptNum = 1 || 97 || 98 || 99 || 0 || 2 || 4 || 6 || 8 
 
-      if (message.length == 0) {
-        return;
+
+      if (message.length == 0 || message!=promptNum) {
+        renderMessage("my", {
+          username: "You",
+          text: message,
+        })
+        
+        renderMessage("invalid-input", {
+          username: "chatBot",
+        })
       }
 
      else if (message === "1") {
@@ -46,7 +55,7 @@
           text: message,
         });
         socket.on("order_options", function (message) {
-          renderMessage("order_options", message);
+          renderMessage("order_options", message)
           socket.off("order_options");
         });
       }
@@ -170,7 +179,26 @@
 				</div>
 			`;
       messageContainer.appendChild(el);
-    } else if (type == "other") {
+    } 
+    else if (type == "invalid-input") {
+      let el = document.createElement("div");
+      el.setAttribute("class", "message other-message");
+      el.innerHTML = `
+				<div>
+					<div class="name">chatBot</div>
+					<div class="text">invalid input</div><br>
+          <div>select 1 to place an order</div>
+					<div>select 97 to see current order</div>
+					<div>select 98 to see order history</div>
+					<div>select 99 to checkout an order<div>
+					<div>select 0 to cancel order</div>
+				</div>
+			`;
+
+      messageContainer.appendChild(el);
+    } 
+    
+    else if (type == "other") {
       let el = document.createElement("div");
       el.setAttribute("class", "message other-message");
       el.innerHTML = `
