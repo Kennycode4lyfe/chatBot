@@ -30,10 +30,10 @@
     .addEventListener("click", function () {
       let message = app.querySelector(".chat-screen #message-input").value;
       console.log(message);
-      const promptNum = 1 || 97 || 98 || 99 || 0 || 2 || 4 || 6 || 8 
+      const promptNum = '1' || '97' || '98' || '99' || '0' || '2' || '4' || '6' || '8' 
 
 
-      if (message.length == 0 || message!=promptNum) {
+      if (message.length == 0) {
         renderMessage("my", {
           username: "You",
           text: message,
@@ -43,6 +43,18 @@
           username: "chatBot",
         })
       }
+
+
+    // else  if(message !== '1' || '97' || '98' || '99' || '0' || '2' || '4' || '6' || '8' ) {
+    //     renderMessage("my", {
+    //       username: "You",
+    //       text: message,
+    //     })
+        
+    //     renderMessage("invalid-input", {
+    //       username: "chatBot",
+    //     })
+    //   }
 
      else if (message === "1") {
         console.log(message);
