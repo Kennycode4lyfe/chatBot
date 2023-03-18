@@ -331,6 +331,7 @@ button:hover{
 .chat-screen .typebox input {
 	flex: 1;
 	height: 50px;
+    width: 60%;
 	font-size: 18px;
     border-radius: 0px 0px 0px 8px;
 }
