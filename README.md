@@ -70,6 +70,34 @@ This is a web app for a restaurant that utilizes a chatBot interface
 |  items       | array                | optional                   |
 
 
+### store meal in database
+
+- Route: /meal
+- Method: POST
+- Body:
+
+```
+{
+  "name": "pasta",
+  "price": 5000,
+  
+}
+```
+
+- Responses
+
+Success
+
+```
+{
+  "name": "pasta",
+  "price": 5000,
+  "_id": "641589b4b7b1bd4a59b93fdf",
+  "__v": 0
+}
+```
+
+
 
 ## frontend
 

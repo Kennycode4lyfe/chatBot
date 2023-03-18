@@ -1,57 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="home.css" />
     <!-- <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script> -->
-    <script src="https://kit.fontawesome.com/58740b3685.js" crossorigin="anonymous"></script>
-</head>
-<body>
+    <script
+      src="https://kit.fontawesome.com/58740b3685.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
     <div class="banner">
-    <div class="navbar">
+      <div class="navbar">
         <ul class="logo">
-            <li><a href="#"><p>Venpro</p></a></li>
+          <li>
+            <a href="#"><p>Venpro</p></a>
+          </li>
         </ul>
-       
-<ul class="nav-details">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Services</a></li>
-    <li><a href="#">Contact</a></li>
-</ul>
-<a href="#" class="menu">
-    <i class="fa fa-bars "></i>
-    </a>        
-    </div>
-    <div class="content">
-        <h1>ONE STEP AWAY TO YOUR PREFERED DISH</h1>
-        <P>Click the message icon to order your meal</P>
-        <div>
-            <button type="button" class="button"><span></span>Github</button>
-            <button type="button" class="button"><span></span>LinkedIn</button>
-        </div>
-    </div>
-    <a href="#" class="float" id="float">
-    <i class="fa fa-message my-float"></i>
-    </a>
 
-    <div class="screen chat-screen" id="chat-screen">
+        <ul class="nav-details">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <a href="#" class="menu">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+      <div class="content">
+        <h1>ONE STEP AWAY TO YOUR PREFERED DISH</h1>
+        <p>Click the message icon to order your meal</p>
+        <div>
+          <button type="button" class="button"><span></span>Github</button>
+          <button type="button" class="button"><span></span>LinkedIn</button>
+        </div>
+      </div>
+      <a href="#" class="float" id="float">
+        <i class="fa fa-message my-float"></i>
+      </a>
+
+      <div class="screen chat-screen" id="chat-screen">
         <div class="header">
-            <div class="logo">Chatroom</div>
-            <button id="exit-chat">Exit</button>
+          <div class="logo">Chatroom</div>
+          <button id="exit-chat">Exit</button>
         </div>
-        <div class="messages">
-        </div>
+        <div class="messages"></div>
         <div class="typebox">
-            <input type="text" id="message-input">
-            <button id="send-message">Send</button>
+          <input type="text" id="message-input" />
+          <button id="send-message">Send</button>
         </div>
-    </div>
+      </div>
     </div>
     <script type="text/javascript" src="socket.io/socket.io.js"></script>
-	<script type="text/javascript" src="./home.js"></script>
-</body>
+    <script type="text/javascript" src="./home.js"></script>
+  </body>
 </html>

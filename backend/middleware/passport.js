@@ -1,7 +1,8 @@
 const passport = require('passport');
-// const localStrategy = require('passport-local').Strategy
 const UserModel = require('../model/index').UserModel
 const passportCustomStrategy = require('passport-custom').Strategy
+
+//used passport custom-strategy to store user's username in database
 passport.use(
     new passportCustomStrategy(
       async(req,done) => {
@@ -19,27 +20,8 @@ passport.use(
     })
   );
 
-// const DUMMY_USER = {
-//   id: 1,
-//   username: "john",
-// };
 
-
-
-// passport.use('signup',
-//   new localStrategy((username, password, done) => {
-//     console.log('passport')
-//     if (username === "john") {
-//       console.log("authentication OK");
-//       return done(null, DUMMY_USER);
-//     } else {
-//       console.log("wrong credentials");
-//       return done(null, false);
-//     }
-//   })
-// );
-
-
+//serialize and deserialize user details from passport
 
   passport.serializeUser((user, cb) => {
     console.log(`serializeUser ${user}`);
