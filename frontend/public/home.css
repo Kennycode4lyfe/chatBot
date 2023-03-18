@@ -115,6 +115,11 @@ button:hover{
     border: none;
 }
 
+.button a{
+    text-decoration: none;
+    color:whitesmoke;
+}
+
 .float{
     position: fixed;
     width: 60px;
