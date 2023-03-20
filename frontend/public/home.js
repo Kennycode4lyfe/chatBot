@@ -8,14 +8,14 @@
     const messageButton = document.getElementById("float");
     messageButton.style.display = "none";
     document.getElementById("chat-screen").style.display = "block";
-	const messagePrompt= document.getElementById("message-check")
-	if(messagePrompt){
-		return
-	}
-	else{
-    renderMessage("options", {
-      username: "chatBot",
-    });}
+    const messagePrompt = document.getElementById("message-check");
+    if (messagePrompt) {
+      return;
+    } else {
+      renderMessage("options", {
+        username: "chatBot",
+      });
+    }
   });
 
   const exitButton = messageScreen.querySelector("#exit-chat");
@@ -30,33 +30,40 @@
     .addEventListener("click", function () {
       let message = app.querySelector(".chat-screen #message-input").value;
       console.log(message);
-      const promptNum = '1' || '97' || '98' || '99' || '0' || '2' || '4' || '6' || '8' 
+      const promptNum = {
+        a: "1",
+        b: "97",
+        c: "98",
+        d: "99",
+        e: "0",
+        f: "2",
+        g: "4",
+        h: "6",
+        i: "8",
+      };
 
+      var exists = Object.keys(promptNum).some(function(k) {
+        return promptNum[k] === message;
+    });
 
       if (message.length == 0) {
-        renderMessage("my", {
-          username: "You",
-          text: message,
-        })
-        
+       
         renderMessage("invalid-input", {
           username: "chatBot",
-        })
+        });
       }
 
+      else  if(!exists) {
+          renderMessage("my", {
+            username: "You",
+            text: message,
+          })
 
-    // else  if(message !== '1' || '97' || '98' || '99' || '0' || '2' || '4' || '6' || '8' ) {
-    //     renderMessage("my", {
-    //       username: "You",
-    //       text: message,
-    //     })
-        
-    //     renderMessage("invalid-input", {
-    //       username: "chatBot",
-    //     })
-    //   }
-
-     else if (message === "1") {
+          renderMessage("invalid-input", {
+            username: "chatBot",
+          })
+        }
+      else if (message === "1") {
         console.log(message);
         renderMessage("my", {
           username: "chatBot",
@@ -67,12 +74,10 @@
           text: message,
         });
         socket.on("order_options", function (message) {
-          renderMessage("order_options", message)
+          renderMessage("order_options", message);
           socket.off("order_options");
         });
-      }
-
-     else if (
+      } else if (
         message === "6" ||
         message === "2" ||
         message === "4" ||
@@ -94,16 +99,13 @@
           renderMessage("checkout_order", {});
           socket.off("order_details");
         });
-      }
-
-     else if (message === "99") {
+      } else if (message === "99") {
         console.log(message);
         renderMessage("my", {
           username: "You",
           text: message,
         });
 
-       
         socket.emit("checkout_order", {
           username: "chatBot",
           number: message,
@@ -114,11 +116,8 @@
 
           renderMessage("order_placed", message);
           socket.off("place_order");
-        })
-      
-      }
-
-     else if (message === "97") {
+        });
+      } else if (message === "97") {
         console.log(message);
         renderMessage("my", {
           username: "You",
@@ -135,9 +134,7 @@
           renderMessage("current_order", message);
           socket.off("show_current_order");
         });
-      }
-
-     else if (message === "98") {
+      } else if (message === "98") {
         console.log(message);
         renderMessage("my", {
           username: "You",
@@ -154,9 +151,7 @@
           renderMessage("order_history", message);
           socket.off("show_order_history");
         });
-      }
-
-     else if (message === "0") {
+      } else if (message === "0") {
         console.log(message);
         renderMessage("my", {
           username: "You",
@@ -178,7 +173,6 @@
       app.querySelector(".chat-screen #message-input").value = "";
     });
 
-
   function renderMessage(type, message) {
     let messageContainer = app.querySelector(".chat-screen .messages");
     if (type == "my") {
@@ -191,8 +185,7 @@
 				</div>
 			`;
       messageContainer.appendChild(el);
-    } 
-    else if (type == "invalid-input") {
+    } else if (type == "invalid-input") {
       let el = document.createElement("div");
       el.setAttribute("class", "message other-message");
       el.innerHTML = `
@@ -208,9 +201,7 @@
 			`;
 
       messageContainer.appendChild(el);
-    } 
-    
-    else if (type == "other") {
+    } else if (type == "other") {
       let el = document.createElement("div");
       el.setAttribute("class", "message other-message");
       el.innerHTML = `
@@ -245,11 +236,11 @@
 
       messageContainer.appendChild(el);
     } else if (type == "current_order") {
-      if(typeof(message.currentOrder)==='string'){
-        console.log(typeof(message.currentOrder))
+      if (typeof message.currentOrder === "string") {
+        console.log(typeof message.currentOrder);
         let el = document.createElement("div");
-      el.setAttribute("class", "message other-message");
-      el.innerHTML = `
+        el.setAttribute("class", "message other-message");
+        el.innerHTML = `
 				<div>
 					<div class="name">${message.name}</div>
 					<div class="text">${message.currentOrder}</div>
@@ -257,12 +248,11 @@
 				</div>
 			`;
 
-      messageContainer.appendChild(el);
-      }
-      else{
-      let el = document.createElement("div");
-      el.setAttribute("class", "message other-message");
-      el.innerHTML = `
+        messageContainer.appendChild(el);
+      } else {
+        let el = document.createElement("div");
+        el.setAttribute("class", "message other-message");
+        el.innerHTML = `
 				<div>
 					<div class="name">${message.name}</div>
 					<div class="text">current order is:</div>
@@ -271,14 +261,15 @@
 				</div>
 			`;
 
-      messageContainer.appendChild(el);}
+        messageContainer.appendChild(el);
+      }
     } else if (type == "order_history") {
-      console.log(typeof(message))
-      console.log(message)
-      if(typeof(message.message)==='object'){
-      let el = document.createElement("div");
-      el.setAttribute("class", "message other-message");
-      el.innerHTML = `
+      console.log(typeof message);
+      console.log(message);
+      if (typeof message.message === "object") {
+        let el = document.createElement("div");
+        el.setAttribute("class", "message other-message");
+        el.innerHTML = `
 				<div>
 				<table id="orders">
 				<tr>
@@ -288,25 +279,25 @@
 			  </table>
 				</div>
 			`;
-      messageContainer.appendChild(el);
+        messageContainer.appendChild(el);
 
-      console.log(message);
-      message.message.forEach((element) => {
-        console.log(element.name);
-        const orderTable = document.querySelectorAll("#orders");
-        console.log(orderTable);
-        const row = orderTable[orderTable.length - 1].insertRow(-1);
+        console.log(message);
+        message.message.forEach((element) => {
+          console.log(element.name);
+          const orderTable = document.querySelectorAll("#orders");
+          console.log(orderTable);
+          const row = orderTable[orderTable.length - 1].insertRow(-1);
 
-        let column1 = row.insertCell(0);
-        let column2 = row.insertCell(1);
+          let column1 = row.insertCell(0);
+          let column2 = row.insertCell(1);
 
-        column1.innerText = element.name;
-        column2.innerText = element.price;
-      })}
-      else{
+          column1.innerText = element.name;
+          column2.innerText = element.price;
+        });
+      } else {
         let el = document.createElement("div");
-      el.setAttribute("class", "message other-message");
-      el.innerHTML = `
+        el.setAttribute("class", "message other-message");
+        el.innerHTML = `
 				<div>
 					<div class="name">chatBot</div>
 					<div class="text">${message.message}</div>
@@ -314,7 +305,7 @@
 				</div>
 			`;
 
-      messageContainer.appendChild(el); 
+        messageContainer.appendChild(el);
       }
     } else if (type == "order_placed") {
       let el = document.createElement("div");
@@ -355,8 +346,8 @@
       messageContainer.appendChild(el);
     } else if (type == "options") {
       let el = document.createElement("div");
-      el.setAttribute("class", "message other-message")
-	  el.setAttribute("id", "message-check")
+      el.setAttribute("class", "message other-message");
+      el.setAttribute("id", "message-check");
       el.innerHTML = `
 				<div>
 					<div class="name">${message.username}</div>
